@@ -1,0 +1,23 @@
+{
+  "name": "telegram-bet-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Julia-Marcal/telegram-bet-bot",
+  "author": "Julia-Marcal <anajulia.05marcal@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.14.1",
+    "@types/node-telegram-bot-api": "^0.61.6",
+    "dotenv": "^16.0.3",
+    "node-telegram-bot-api": "^0.61.0",
+    "prisma": "^4.14.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
