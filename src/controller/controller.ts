@@ -1,18 +1,20 @@
 import { prisma } from '../services/prisma'
 
-
-export const createUser = async(telegramId: string, name: string) =>{
+export const createUser = async (telegramId: string, name: string) => {
   const userCheck = await prisma.user.findFirst({
     where: {
       telegramId
     }
   });
-  if(userCheck) return userCheck
+
+  if (userCheck) return userCheck;
 
   const user = await prisma.user.create({
-    telegramId,
-    name,
-  })
+    data: {
+      telegramId,
+      name,
+    }
+  });
 
-  return user
+  return user;
 }
