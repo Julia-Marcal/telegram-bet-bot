@@ -12,6 +12,10 @@ const commands = [
     {
       command: '/start',
       description: 'Cadastradar seu perfil de apostador no bot'
+    },
+    {
+      command: '/addLeague',
+      description: 'Adicionar mais ligas ao seu perfil para acompanhar'
     }
 ]
 
