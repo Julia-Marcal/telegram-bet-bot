@@ -1,11 +1,12 @@
 require('dotenv').config()
 import TelegramBot from "node-telegram-bot-api"
 import scrapingBestGames from "../../scraping-bets/src/index"
-import { allowed_leagues } from "./services/default_list"
+import { default_leagues } from "./services/default_list"
 
 //Controllers
 import { createUser } from "./controller/post/RegisterUser";
 import { help } from "./controller/get/help";
+import { addLeague } from './controller/update/addLeagues'
 
 
 const token = process.env.TOKEN
@@ -27,17 +28,24 @@ const msgData = (msg: TelegramBot.Message) => {
   }
 }
 
-bot.onText(/\start/, async (msg, match) => {
+bot.onText(/\/start/, async (msg, match) => {
   const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {
         await createUser(telegramId, name, sendMessage);
     }
-    //scrapingBestGames(allowed_leagues, 'https://www.sofascore.com/')
 })
+  //scrapingBestGames(default_leagues, 'https://www.sofascore.com/')
 
 bot.onText(/\/help/, async (msg, match) => {
     const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {
         await help(telegramId, name, sendMessage);
+    }
+});
+
+bot.onText(/\/addLeague/, async (msg, match) => {
+    const { telegramId, name, sendMessage } = msgData(msg);
+    if (telegramId) {
+        await addLeague(telegramId, name, sendMessage);
     }
 });
