@@ -7,5 +7,6 @@ export const userCheck = async (telegramId: string, name: string) => {
     }
   });
 
+  await prisma.$disconnect
   return user ? true : false;
 }
