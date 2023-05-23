@@ -1,5 +1,6 @@
 require('dotenv').config()
 import TelegramBot from "node-telegram-bot-api"
+
 import scrapingBestGames from "../../scraping-bets/src/index"
 import { default_leagues } from "./services/default_list"
 
@@ -13,7 +14,7 @@ const token = process.env.TOKEN
 
 if(!token) throw new Error('Missing Token')
 
-const bot = new TelegramBot(token, {polling: true})
+export const bot = new TelegramBot(token, {polling: true})
 
 //message sender function
 const msgData = (msg: TelegramBot.Message) => {
@@ -28,7 +29,7 @@ const msgData = (msg: TelegramBot.Message) => {
   }
 }
 
-bot.onText(/\/start/, async (msg, match) => {
+bot.onText(/\/start/, async (msg) => {
   const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {
         await createUser(telegramId, name, sendMessage);
@@ -36,16 +37,16 @@ bot.onText(/\/start/, async (msg, match) => {
 })
   //scrapingBestGames(default_leagues, 'https://www.sofascore.com/')
 
-bot.onText(/\/help/, async (msg, match) => {
+bot.onText(/\/help/, async (msg) => {
     const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {
         await help(telegramId, name, sendMessage);
     }
 });
 
-bot.onText(/\/addLeague/, async (msg, match) => {
+bot.onText(/\/addLeague/, async (msg) => {
     const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {
-        await addLeague(telegramId, name, sendMessage);
+        await addLeague(telegramId, name, msg, sendMessage);
     }
 });
