@@ -24,48 +24,46 @@ export const addLeague = async (telegramId: string, name: string, msg: any, send
     }
   };
 
-
   bot.sendMessage(msg.chat.id, 'What league do you wanna add?', opts);
 
-  bot.on('callback_query', function onCallbackQuery(callbackQuery) {
-  const data = callbackQuery.data;
-  const message = callbackQuery.message!;
+  async function getUserLeagues() {
+    try {
+      const user_leagues = await prisma.user.findUnique({
+        where: {
+          telegramId
+        },
+        select: {
+          leagues: true
+        }
+      });
 
-  let added_league: string;
+      await prisma.$disconnect();
 
-  if (data === 'pm') {
-    bot.sendMessage(message.chat.id, 'Premier League was added to your list');
-    added_league = 'Premier League';
-  } else if (data === 'll') {
-    bot.sendMessage(message.chat.id, 'La Liga was added to your list');
-    added_league = 'LaLiga';
-  } else if (data == 'sa'){
-    bot.sendMessage(message.chat.id, 'Serie A was added to your list');
-    added_league = 'Serie A';
-  } else if (data == 'bu'){
-    bot.sendMessage(message.chat.id, 'Bundesliga was added to your list');
-    added_league = 'Bundesliga';
-  } else if (data == 'l1'){
-    bot.sendMessage(message.chat.id, 'Ligue 1 was added to your list');
-    added_league = 'Ligue 1';
-  } else if (data == 'pl'){
-    bot.sendMessage(message.chat.id, 'Primeira Liga was added to your list');
-    added_league = 'Primeira Liga'
-  } else if (data == 'er'){
-    bot.sendMessage(message.chat.id, 'Eredivisie was added to your list');
-    added_league = 'Eredivisie'
-  } else if (data == 'ch1'){
-    bot.sendMessage(message.chat.id, 'UEFA Champions League was added to your list');
-    added_league = 'UEFA Champions League'
-  } else if (data == 'el'){
-    bot.sendMessage(message.chat.id, 'UEFA Europa League was added to your list');
-    added_league = 'UEFA Europa League'
-  } else if (data == 'col'){
-    bot.sendMessage(message.chat.id, 'UEFA Europa Conference League was added to your list');
-    added_league = 'UEFA Europa Conference League'
+      return user_leagues?.leagues || [];
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   }
 
-  async function updateLeagues() {
+  function checkIfLeagueAllowed(message: any, added_league: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      getUserLeagues()
+        .then((leagues: string[]) => {
+          if (leagues.includes(added_league)) {
+            return bot.sendMessage(message.chat.id, `${added_league} is already in your list`);
+          }
+        })
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  async function updateLeagues(added_league: string) {
     try {
       const user = await prisma.user.update({
         where: {
@@ -83,32 +81,81 @@ export const addLeague = async (telegramId: string, name: string, msg: any, send
     }
   }
 
+  async function stringLeagues(message: any, added_league: string) {
+    const leagues = await getUserLeagues();
+    const leaguesString = leagues.join(', ');
 
-  async function getUserLeagues() {
-    try {
-      const user_leagues = await prisma.user.findUnique({
-        where: {
-          telegramId
-        },
-        select: {
-          leagues: true
-        }
-      });
-
-      const leagues = user_leagues!.leagues;
-
-      const leaguesString = leagues.join(', ');
-
-      bot.sendMessage(message.chat.id, `Suas ligas são ${leaguesString}`);
-
-      await prisma.$disconnect();
-    } catch (error) {
-      console.log(error)
-    }
+    bot.sendMessage(message.chat.id, `Agora suas ligas são ${leaguesString}, e agora foi adiconado ${added_league}`);
   }
 
-  updateLeagues();
-  getUserLeagues();
+  bot.on('callback_query', async function onCallbackQuery(callbackQuery) {
 
-});
-}
+  const data = callbackQuery.data;
+  const message = callbackQuery.message!;
+
+  let added_league: string;
+
+  if (data === 'pm') {
+    added_league = 'Premier League';
+    await checkIfLeagueAllowed(message, added_league);
+    await bot.sendMessage(message.chat.id, 'Premier League was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'll') {
+    added_league = 'LaLiga';
+    await checkIfLeagueAllowed(message, added_league);
+    await bot.sendMessage(message.chat.id, 'La Liga was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'sa') {
+    added_league = 'Serie A';
+    await checkIfLeagueAllowed(message, added_league);
+    await bot.sendMessage(message.chat.id, 'Serie A was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'bu') {
+    added_league = 'Bundesliga';
+    await checkIfLeagueAllowed(message, added_league);
+    await bot.sendMessage(message.chat.id, 'Bundesliga was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'l1') {
+    added_league = 'Ligue 1';
+    await bot.sendMessage(message.chat.id, 'Ligue 1 was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'pl') {
+    added_league = 'Primeira Liga';
+    await checkIfLeagueAllowed(message, added_league);
+    await bot.sendMessage(message.chat.id, 'Primeira Liga was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'er') {
+    added_league = 'Eredivisie';
+    await checkIfLeagueAllowed(message, added_league);
+    await bot.sendMessage(message.chat.id, 'Eredivisie was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'ch1') {
+    added_league = 'UEFA Champions League';
+    await checkIfLeagueAllowed(message, added_league);
+    await bot.sendMessage(message.chat.id, 'UEFA Champions League was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+
+  } else if (data === 'el') {
+    added_league = 'UEFA Europa League';
+    await checkIfLeagueAllowed(message, added_league)
+    await bot.sendMessage(message.chat.id, 'UEFA Europa Conference League was added to your list');
+    await updateLeagues(added_league);
+    stringLeagues(message, added_league);
+    }
+  }
+)}
