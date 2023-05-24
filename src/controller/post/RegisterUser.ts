@@ -3,7 +3,7 @@ import { default_leagues } from '../../services/default_list'
 import { userCheck } from '../get/UserCheck'
 
 export const createUser = async (telegramId: string, name: string, sendMessage: (text: string) => Promise<void>) => {
-  const isUserRegistered = await userCheck(telegramId, name);
+  const isUserRegistered = await userCheck(telegramId);
   if (isUserRegistered) return;
 
   const user = await prisma.user.create({
