@@ -8,7 +8,7 @@ import { default_leagues } from "./services/default_list"
 import { createUser } from "./controller/post/RegisterUser";
 import { help } from "./controller/get/help";
 import { addLeague } from './controller/update/addLeagues'
-
+import { userCheck } from './controller/get/UserCheck'
 
 const token = process.env.TOKEN
 
@@ -29,11 +29,22 @@ const msgData = (msg: TelegramBot.Message) => {
   }
 }
 
+bot.onText(/.*/, async (msg) => {
+  const { telegramId, name, sendMessage } = msgData(msg);
+  const userAlreadyExists = userCheck(telegramId)
+
+  if(await userAlreadyExists) return
+
+  await sendMessage(`Bem vindo ao bet bot ${name}! Para saber mais envie o comando /help no chat`);
+});
+
+
 bot.onText(/\/start/, async (msg) => {
   const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {
         await createUser(telegramId, name, sendMessage);
     }
+    await sendMessage('Todos os usuários começam com o Brasileirão em suas ligas, caso queria adicionar outra liga use /help ')
 })
   //scrapingBestGames(default_leagues, 'https://www.sofascore.com/')
 
