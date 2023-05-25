@@ -7,16 +7,16 @@ export const addLeague = async (telegramId: string, name: string, msg: any, send
   if (!isUserRegistered) return sendMessage('Se registre primeiro');
 
    const leagues = [
-    { text: 'Premier League', value: 'Premier League', callback_data: 'pm' },
-    { text: 'LaLiga', value: 'LaLiga', callback_data: 'll' },
-    { text: 'Serie A', value: 'Serie A', callback_data: 'sa' },
-    { text: 'Bundesliga', value: 'Bundesliga', callback_data: 'bu' },
-    { text: 'Ligue 1', value: 'Ligue 1', callback_data: 'l1' },
-    { text: 'Primeira Liga', value: 'Primeira Liga', callback_data: 'pl' },
-    { text: 'Eredivisie', value: 'Eredivisie', callback_data: 'er' },
-    { text: 'UEFA Champions League', value: 'UEFA Champions League', callback_data: 'chl' },
-    { text: 'UEFA Europa League', value: 'UEFA Europa League', callback_data: 'el' },
-    { text: 'UEFA Europa Conference League', value: 'UEFA Europa Conference League', callback_data: 'col' },
+    { text: 'Premier League', callback_data: 'pm' },
+    { text: 'LaLiga', callback_data: 'll' },
+    { text: 'Serie A', callback_data: 'sa' },
+    { text: 'Bundesliga', callback_data: 'bu' },
+    { text: 'Ligue 1', callback_data: 'l1' },
+    { text: 'Primeira Liga', callback_data: 'pl' },
+    { text: 'Eredivisie', callback_data: 'er' },
+    { text: 'UEFA Champions League', callback_data: 'chl' },
+    { text: 'UEFA Europa League', callback_data: 'el' },
+    { text: 'UEFA Europa Conference League', callback_data: 'col' },
   ];
 
   const opts = {
@@ -196,7 +196,7 @@ export const addLeague = async (telegramId: string, name: string, msg: any, send
         stringLeagues(message, added_league),
       ])
     }
-  } else if (data === 'el') {
+  } else if (data === 'col') {
     added_league = 'UEFA Europa Conference League';
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league);
     if(!leagueAllowed){

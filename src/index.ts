@@ -44,7 +44,7 @@ bot.onText(/\/start/, async (msg) => {
     if (telegramId) {
         await createUser(telegramId, name, sendMessage);
     }
-    await sendMessage('Todos os usuários começam com o Brasileirão em suas ligas, caso queria adicionar outra liga use /help ')
+    await sendMessage('Todos os usuários começam com o Brasileirão em suas ligas, caso queria adicionar outra liga use /addLeague ')
 })
   //scrapingBestGames(default_leagues, 'https://www.sofascore.com/')
 
@@ -60,5 +60,4 @@ bot.onText(/\/addLeague/, async (msg) => {
     if (telegramId) {
         await addLeague(telegramId, name, msg, sendMessage);
     }
-    return
 });
