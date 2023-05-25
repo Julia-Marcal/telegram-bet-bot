@@ -7,8 +7,8 @@ import { default_leagues } from "./services/default_list"
 //Controllers
 import { createUser } from "./controller/post/RegisterUser";
 import { help } from "./controller/get/help";
-import { addLeague } from './controller/update/addLeagues'
-import { userCheck } from './controller/get/UserCheck'
+import { addLeague, callback_league } from './controller/update/addLeagues'
+import { userCheck} from './controller/get/UserCheck'
 
 const token = process.env.TOKEN
 
@@ -59,5 +59,8 @@ bot.onText(/\/addLeague/, async (msg) => {
     const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {
         await addLeague(telegramId, name, msg, sendMessage);
+        bot.on("callback_query", async (callbackQuery: any) => {
+          await callback_league(callbackQuery, telegramId);
+        })
     }
 });
