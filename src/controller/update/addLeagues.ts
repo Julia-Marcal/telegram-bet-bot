@@ -26,7 +26,7 @@ export const addLeague = async (telegramId: string, name: string, msg: any, send
     },
   };
 
-  bot.sendMessage(msg.chat.id, 'What league do you wanna add?', opts);
+  bot.sendMessage(msg.chat.id, 'Qual liga quer adicionar', opts);
 }
 async function getUserLeagues(telegramId: any) {
   try {
