@@ -60,4 +60,5 @@ bot.onText(/\/addLeague/, async (msg) => {
     if (telegramId) {
         await addLeague(telegramId, name, msg, sendMessage);
     }
+    return
 });
