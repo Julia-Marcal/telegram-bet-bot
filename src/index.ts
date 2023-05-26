@@ -8,7 +8,9 @@ import { default_leagues } from "./services/default_list"
 import { createUser } from "./controller/post/RegisterUser";
 import { help } from "./controller/get/help";
 import { addLeague, callback_league } from './controller/update/addLeagues'
-import { userCheck} from './controller/get/UserCheck'
+import { userCheck } from './controller/get/UserCheck'
+import { deleteLeague, callbackDeleteLeague } from './controller/delete/deleteLeague'
+
 
 const token = process.env.TOKEN
 
@@ -64,3 +66,13 @@ bot.onText(/\/addLeague/, async (msg) => {
         })
     }
 });
+
+bot.onText(/\/deleteLeague/, async (msg) => {
+    const { telegramId, sendMessage } = msgData(msg);
+    if (telegramId) {
+      await deleteLeague(telegramId, msg, sendMessage);
+        bot.on("callback_query", async (callbackQuery: any) => {
+          await callbackDeleteLeague(callbackQuery, telegramId)
+        })
+    }
+})
