@@ -2,6 +2,8 @@ import { prisma } from '../../services/prisma'
 import { userCheck } from '../get/UserCheck'
 import { bot } from '../../index'
 
+import { UserNotFoundException } from '../../error-handling/error-handling'
+
 export const addLeague = async (telegramId: string, name: string, msg: any, sendMessage: (text: string) => Promise<void>) => {
   const isUserRegistered = await userCheck(telegramId);
   if (!isUserRegistered) return sendMessage('Se registre primeiro');
@@ -43,7 +45,7 @@ async function getUserLeagues(telegramId: any) {
 
     return user_leagues?.leagues || [];
   } catch (error) {
-    console.log('error');
+    throw new UserNotFoundException('User not found');
     return [];
   }
 }
@@ -73,8 +75,7 @@ async function updateLeagues(added_league: string, telegramId: any) {
     });
 
     if (!user) {
-      console.log('User not found');
-      return;
+      throw new UserNotFoundException('User not found');
     }
 
     await prisma.user.update({
@@ -111,7 +112,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
   const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if (!leagueAllowed) {
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Premier League was added to your list'),
+        await bot.sendMessage(message.chat.id, 'Premier League foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId)
       ]);
@@ -122,7 +123,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'La Liga was added to your list'),
+        await bot.sendMessage(message.chat.id, 'La Liga foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId)
       ])
@@ -133,7 +134,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Serie A was added to your list'),
+        await bot.sendMessage(message.chat.id, 'Serie A foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId)
       ])
@@ -144,7 +145,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Bundesliga was added to your list'),
+        await bot.sendMessage(message.chat.id, 'Bundesliga foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -155,7 +156,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Ligue 1 was added to your list'),
+        await bot.sendMessage(message.chat.id, 'Ligue 1 foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -166,7 +167,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Primeira Liga was added to your list'),
+        await bot.sendMessage(message.chat.id, 'Primeira Liga foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -177,7 +178,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Eredivisie was added to your list'),
+        await bot.sendMessage(message.chat.id, 'Eredivisie foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -188,7 +189,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'UEFA Champions League was added to your list'),
+        await bot.sendMessage(message.chat.id, 'UEFA Champions League foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -199,7 +200,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'UEFA Europa League League was added to your list'),
+        await bot.sendMessage(message.chat.id, 'UEFA Europa League League foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -209,7 +210,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'UEFA Europa Conference League was added to your list'),
+        await bot.sendMessage(message.chat.id, 'UEFA Europa Conference League foi adicionada a sua lista'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
