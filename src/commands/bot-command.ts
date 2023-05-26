@@ -16,6 +16,10 @@ const commands = [
     {
       command: '/addLeague',
       description: 'Adicionar mais ligas ao seu perfil para acompanhar'
+    },
+    {
+      command: '/deleteLeague',
+      description: 'exclua uma liga do seu perfil e pare de acompanhar'
     }
 ]
 
