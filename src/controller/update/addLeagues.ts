@@ -4,7 +4,7 @@ import { bot } from '../../index'
 
 import { UserNotFoundException } from '../../error-handling/error-handling'
 
-export const addLeague = async (telegramId: string, name: string, msg: any, sendMessage: (text: string) => Promise<void>) => {
+export const addLeague = async (telegramId: string, name: string, msg: any, sendMessage: (text: string) => Promise<void>): Promise<void> => {
   const isUserRegistered = await userCheck(telegramId);
   if (!isUserRegistered) return sendMessage('Se registre primeiro');
 
@@ -30,7 +30,8 @@ export const addLeague = async (telegramId: string, name: string, msg: any, send
 
   bot.sendMessage(msg.chat.id, 'Qual liga quer adicionar', opts);
 }
-async function getUserLeagues(telegramId: any) {
+
+async function getUserLeagues(telegramId: any): Promise<string[]> {
   try {
     const user_leagues = await prisma.user.findUnique({
       where: {
@@ -66,7 +67,7 @@ async function checkIfLeagueAllowed(message: any, added_league: string, telegram
   });
 }
 
-async function updateLeagues(added_league: string, telegramId: any) {
+async function updateLeagues(added_league: string, telegramId: any): Promise<void> {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -94,14 +95,14 @@ async function updateLeagues(added_league: string, telegramId: any) {
   }
 }
 
-async function stringLeagues(message: any, telegramId: any) {
+async function stringLeagues(message: any, telegramId: any): Promise<void>{
   const leagues = await getUserLeagues(telegramId);
   const leaguesString = leagues.join(', ');
 
   bot.sendMessage(message.chat.id, `Agora suas ligas são ${leaguesString}`);
 }
 
-export const callback_league = async function onCallbackQuery(callbackQuery: any, telegramId: any) {
+export const callback_league = async function onCallbackQuery(callbackQuery: any, telegramId: any): Promise<void>{
   const data = callbackQuery.data;
   const message = callbackQuery.message!;
 

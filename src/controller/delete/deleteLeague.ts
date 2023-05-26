@@ -3,7 +3,7 @@ import { userCheck } from '../get/UserCheck'
 import { bot } from '../../index'
 import { UserNotFoundException } from '../../error-handling/error-handling'
 
-export const deleteLeague = async (telegramId: string, msg: any, sendMessage: (text: string) => Promise<void>) => {
+export const deleteLeague = async (telegramId: string, msg: any, sendMessage: (text: string) => Promise<void>): Promise<void> => {
   const isUserRegistered = await userCheck(telegramId);
   if (!isUserRegistered) return sendMessage('Se registre primeiro');
 
@@ -30,7 +30,7 @@ export const deleteLeague = async (telegramId: string, msg: any, sendMessage: (t
   bot.sendMessage(msg.chat.id, 'Qual liga você quer excluir?', opts);
 }
 
-export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery: any, telegramId: any) {
+export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery: any, telegramId: any): Promise<void> {
   const data = callbackQuery.data;
   const message = callbackQuery.message!;
 
