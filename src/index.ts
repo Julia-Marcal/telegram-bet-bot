@@ -1,9 +1,6 @@
 require('dotenv').config()
 import TelegramBot from "node-telegram-bot-api"
 
-import scrapingBestGames from "../../scraping-bets/src/index"
-import { default_leagues } from "./services/default_list"
-
 //Controllers
 import { createUser } from "./controller/post/RegisterUser";
 import { help } from "./controller/get/help";
@@ -11,6 +8,7 @@ import { addLeague, callback_league } from './controller/update/addLeagues'
 import { userCheck } from './controller/get/UserCheck'
 import { deleteLeague, callbackDeleteLeague } from './controller/delete/deleteLeague'
 import { getLeagues } from './controller/get/getLeagues'
+import { getGamesForUser } from './controller/get/GamesToday'
 
 
 const token = process.env.TOKEN
@@ -83,3 +81,10 @@ bot.onText(/\/myLeagues/, async (msg) => {
         await getLeagues(telegramId, sendMessage);
     }
 });
+
+bot.onText(/\/GamesToday/, async (msg) => {
+  const { telegramId, name, sendMessage } = msgData(msg);
+  if (telegramId){
+    await getGamesForUser(telegramId, name, sendMessage)
+  }
+})
