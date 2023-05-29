@@ -10,6 +10,7 @@ import { help } from "./controller/get/help";
 import { addLeague, callback_league } from './controller/update/addLeagues'
 import { userCheck } from './controller/get/UserCheck'
 import { deleteLeague, callbackDeleteLeague } from './controller/delete/deleteLeague'
+import { getLeagues } from './controller/get/getLeagues'
 
 
 const token = process.env.TOKEN
@@ -48,7 +49,6 @@ bot.onText(/\/start/, async (msg) => {
     }
     await sendMessage('Todos os usuários começam com o Brasileirão em suas ligas, caso queria adicionar outra liga use /addLeague ')
 })
-  //scrapingBestGames(default_leagues, 'https://www.sofascore.com/')
 
 bot.onText(/\/help/, async (msg) => {
     const { telegramId, name, sendMessage } = msgData(msg);
@@ -76,3 +76,10 @@ bot.onText(/\/deleteLeague/, async (msg) => {
         })
     }
 })
+
+bot.onText(/\/myLeagues/, async (msg) => {
+    const { telegramId, sendMessage } = msgData(msg);
+    if (telegramId) {
+        await getLeagues(telegramId, sendMessage);
+    }
+});
