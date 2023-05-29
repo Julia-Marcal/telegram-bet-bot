@@ -24,6 +24,10 @@ const commands = [
     {
       command: '/myLeagues',
       description: 'Obtenha a lista das suas ligas'
+    },
+    {
+      command: '/GamesToday',
+      description: 'Veja os jogos de hoje baseado nos seus campeonatos'
     }
 ]
 
