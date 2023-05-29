@@ -19,7 +19,11 @@ const commands = [
     },
     {
       command: '/deleteLeague',
-      description: 'exclua uma liga do seu perfil e pare de acompanhar'
+      description: 'Exclua uma liga do seu perfil e pare de acompanhar'
+    },
+    {
+      command: '/myLeagues',
+      description: 'Obtenha a lista das suas ligas'
     }
 ]
 
