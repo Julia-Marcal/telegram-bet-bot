@@ -1,5 +1,5 @@
 import { prisma } from '../../services/prisma'
-import { userCheck } from '../get/UserCheck'
+import { userCheck } from './UserCheck'
 
 export const getLeagues = async (telegramId: string, sendMessage: (text: string) => Promise<void>) => {
   const isUserRegistered = await userCheck(telegramId);

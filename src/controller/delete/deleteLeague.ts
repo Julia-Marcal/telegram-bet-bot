@@ -1,7 +1,7 @@
 import { prisma } from '../../services/prisma'
 import { userCheck } from '../get/UserCheck'
 import { bot } from '../../index'
-import { UserNotFoundException } from '../../error-handling/error-handling'
+import { UserNotFoundException } from '../../error-handling/Error-handling'
 
 export const deleteLeague = async (telegramId: string, msg: any, sendMessage: (text: string) => Promise<void>): Promise<void> => {
   const isUserRegistered = await userCheck(telegramId);

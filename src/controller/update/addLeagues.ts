@@ -2,7 +2,7 @@ import { prisma } from '../../services/prisma'
 import { userCheck } from '../get/UserCheck'
 import { bot } from '../../index'
 
-import { UserNotFoundException } from '../../error-handling/error-handling'
+import { UserNotFoundException } from '../../error-handling/Error-handling'
 
 export const addLeague = async (telegramId: string, name: string, msg: any, sendMessage: (text: string) => Promise<void>): Promise<void> => {
   const isUserRegistered = await userCheck(telegramId);
