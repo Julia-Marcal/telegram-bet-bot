@@ -30,16 +30,6 @@ const msgData = (msg: TelegramBot.Message) => {
   }
 }
 
-bot.onText(/.*/, async (msg) => {
-  const { telegramId, name, sendMessage } = msgData(msg);
-  const userAlreadyExists = userCheck(telegramId)
-
-  if(await userAlreadyExists) return
-
-  await sendMessage(`Bem vindo ao bet bot ${name}! Para saber mais envie o comando /help no chat`);
-});
-
-
 bot.onText(/\/start/, async (msg) => {
   const { telegramId, name, sendMessage } = msgData(msg);
     if (telegramId) {

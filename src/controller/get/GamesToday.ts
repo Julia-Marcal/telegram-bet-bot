@@ -34,12 +34,12 @@ export const getGamesForUser = async (telegramId: string, name: string, sendMess
     return sendMessage('Não foi possível obter a lista de ligas do usuário.');
   }
 
-  const gamesToday: any = await scrapingBestGames(UserLeaguesList.leagues, 'https://www.sofascore.com/football/2023-06-03');
+  const gamesToday: any = await scrapingBestGames(UserLeaguesList.leagues, 'https://www.sofascore.com');
 
-  if (gamesToday == '[]') {
+  if (gamesToday.length == 0) {
     return sendMessage('Não há jogos das suas ligas hoje.');
   }
 
-  const gamesText = gamesToday.map((game) => `${game.game}: ${game.FirstTeam} - ${game.Tie} - ${game.SecondTeam}`).join('\n');
-  return sendMessage(`Os jogos de hoje são: ${gamesText}`);
+  const gamesText = gamesToday.map((game: any) => `·${game.game}. Odd 1° Time: ${game.FirstTeam}, Odd de Empate: ${game.Tie},  Odd 2° Time: ${game.SecondTeam}\n`);
+  return sendMessage(`Os jogos de hoje são:\n${gamesText}`);
 };
