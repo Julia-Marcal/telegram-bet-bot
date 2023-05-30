@@ -14,5 +14,5 @@ export const getLeagues = async (telegramId: string, sendMessage: (text: string)
     }
   })
 
-  return sendMessage(`Essas são suas ligas atualmente ${Userleagues?.leagues}`);
+  return sendMessage(`Essas são suas ligas atualmente ${Userleagues?.leagues}.`);
 }

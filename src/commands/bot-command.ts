@@ -7,27 +7,27 @@ type BotCommand = {
 const commands = [
     {
         command: '/help',
-        description: 'Obter a lista de comandos'
+        description: 'Obter a lista de comandos.'
     },
     {
       command: '/start',
-      description: 'Cadastradar seu perfil de apostador no bot'
+      description: 'Cadastradar seu perfil de apostador no bot.'
     },
     {
       command: '/addLeague',
-      description: 'Adicionar mais ligas ao seu perfil para acompanhar'
+      description: 'Adicionar mais ligas ao seu perfil para acompanhar.'
     },
     {
       command: '/deleteLeague',
-      description: 'Exclua uma liga do seu perfil e pare de acompanhar'
+      description: 'Exclua uma liga do seu perfil e pare de acompanhar.'
     },
     {
       command: '/myLeagues',
-      description: 'Obtenha a lista das suas ligas'
+      description: 'Obtenha a lista das suas ligas.'
     },
     {
       command: '/GamesToday',
-      description: 'Veja os jogos de hoje baseado nos seus campeonatos'
+      description: 'Veja os jogos de hoje baseado nos seus campeonatos.'
     }
 ]
 

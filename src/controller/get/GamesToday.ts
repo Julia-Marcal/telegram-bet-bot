@@ -40,6 +40,6 @@ export const getGamesForUser = async (telegramId: string, name: string, sendMess
     return sendMessage('Não há jogos das suas ligas hoje.');
   }
 
-  const gamesText = gamesToday.map((game: any) => `·${game.game}. Odd 1° Time: ${game.FirstTeam}, Odd de Empate: ${game.Tie},  Odd 2° Time: ${game.SecondTeam}\n`);
+  const gamesText = gamesToday.map((game: any) => `·${game.game}. Odd 1° Time: ${game.FirstTeam}, Odd de Empate: ${game.Tie},  Odd 2° Time: ${game.SecondTeam}.\n`);
   return sendMessage(`Os jogos de hoje são:\n${gamesText}`);
 };

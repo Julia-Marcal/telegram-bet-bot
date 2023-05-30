@@ -5,7 +5,7 @@ import { UserNotFoundException } from '../../error-handling/Error-handling'
 
 export const deleteLeague = async (telegramId: string, msg: any, sendMessage: (text: string) => Promise<void>): Promise<void> => {
   const isUserRegistered = await userCheck(telegramId);
-  if (!isUserRegistered) return sendMessage('Se registre primeiro');
+  if (!isUserRegistered) return sendMessage('Se registre primeiro.');
 
    const leagues = [
     { text: 'Premier League', callback_data: 'pm' },
@@ -42,7 +42,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if (possibleToExclude) {
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'Premier League foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'Premier League foi removida da sua lista.'),
       ]);
     }
 
@@ -52,7 +52,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'La Liga foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'La Liga foi removida da sua lista.'),
       ])
     }
 
@@ -62,7 +62,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'Serie A foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'Serie A foi removida da sua lista.'),
       ])
     }
 
@@ -72,7 +72,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'Bundesliga foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'Bundesliga foi removida da sua lista.'),
       ])
     }
 
@@ -82,7 +82,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'Ligue 1 foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'Ligue 1 foi removida da sua lista.'),
       ])
     }
 
@@ -92,7 +92,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'Primeira Liga foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'Primeira Liga foi removida da sua lista.'),
       ])
     }
 
@@ -102,7 +102,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'Eredivisie foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'Eredivisie foi removida da sua lista.'),
       ])
     }
 
@@ -112,7 +112,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'UEFA Champions League foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'UEFA Champions League foi removida da sua lista.'),
       ])
     }
 
@@ -122,7 +122,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'UEFA Europa League League foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'UEFA Europa League League foi removida da sua lista.'),
       ])
     }
   } else if (data === 'col') {
@@ -131,7 +131,7 @@ export const callbackDeleteLeague = async function onCallbackQuery(callbackQuery
     if(possibleToExclude){
       await Promise.all([
         await deleteLeagueFromList(removed_league, telegramId, message),
-        await bot.sendMessage(message.chat.id, 'UEFA Europa Conference League foi removida da sua lista'),
+        await bot.sendMessage(message.chat.id, 'UEFA Europa Conference League foi removida da sua lista.'),
       ])
   }}
 }
@@ -152,7 +152,7 @@ async function getUserLeagues(telegramId: any): Promise<String[]> {
 
     return user_leagues?.leagues || [];
   } catch (error) {
-    throw new UserNotFoundException('User not found')
+    throw new UserNotFoundException('User not found.')
   }
 }
 
@@ -186,13 +186,13 @@ async function deleteLeagueFromList(removedLeague: string, telegramId: any, mess
     });
 
     if (!updatedUser) {
-      throw new UserNotFoundException('User not found');
+      throw new UserNotFoundException('User not found.');
     }
 
     const Userleagues = updatedUser.leagues;
     const leaguesString = Userleagues.join(', ');
 
-    bot.sendMessage(message.chat.id, `Agora suas ligas são ${leaguesString}`);
+    bot.sendMessage(message.chat.id, `Agora suas ligas são ${leaguesString}.`);
 
     await prisma.$disconnect();
   } catch (error) {

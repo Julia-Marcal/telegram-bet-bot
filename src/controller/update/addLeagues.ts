@@ -6,7 +6,7 @@ import { UserNotFoundException } from '../../error-handling/Error-handling'
 
 export const addLeague = async (telegramId: string, name: string, msg: any, sendMessage: (text: string) => Promise<void>): Promise<void> => {
   const isUserRegistered = await userCheck(telegramId);
-  if (!isUserRegistered) return sendMessage('Se registre primeiro');
+  if (!isUserRegistered) return sendMessage('Se registre primeiro.');
 
    const leagues = [
     { text: 'Premier League', callback_data: 'pm' },
@@ -28,7 +28,7 @@ export const addLeague = async (telegramId: string, name: string, msg: any, send
     },
   };
 
-  bot.sendMessage(msg.chat.id, 'Qual liga quer adicionar', opts);
+  bot.sendMessage(msg.chat.id, 'Qual liga quer adicionar?', opts);
 }
 
 async function getUserLeagues(telegramId: any): Promise<string[]> {
@@ -56,7 +56,7 @@ async function checkIfLeagueAllowed(message: any, added_league: string, telegram
     try {
       const leagues = await getUserLeagues(telegramId);
       if (leagues.includes(added_league)) {
-        await bot.sendMessage(message.chat.id, `${added_league} is already in your list`);
+        await bot.sendMessage(message.chat.id, `${added_league} is already in your list.`);
         resolve(true);
       } else {
         resolve(false);
@@ -99,7 +99,7 @@ async function stringLeagues(message: any, telegramId: any): Promise<void>{
   const leagues = await getUserLeagues(telegramId);
   const leaguesString = leagues.join(', ');
 
-  bot.sendMessage(message.chat.id, `Agora suas ligas são ${leaguesString}`);
+  bot.sendMessage(message.chat.id, `Agora suas ligas são ${leaguesString}.`);
 }
 
 export const callback_league = async function onCallbackQuery(callbackQuery: any, telegramId: any): Promise<void>{
@@ -113,7 +113,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
   const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if (!leagueAllowed) {
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Premier League foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'Premier League foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId)
       ]);
@@ -124,7 +124,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'La Liga foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'La Liga foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId)
       ])
@@ -135,7 +135,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Serie A foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'Serie A foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId)
       ])
@@ -146,7 +146,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Bundesliga foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'Bundesliga foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -157,7 +157,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Ligue 1 foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'Ligue 1 foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -168,7 +168,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Primeira Liga foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'Primeira Liga foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -179,7 +179,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'Eredivisie foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'Eredivisie foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -190,7 +190,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'UEFA Champions League foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'UEFA Champions League foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -201,7 +201,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'UEFA Europa League League foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'UEFA Europa League League foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
@@ -211,7 +211,7 @@ export const callback_league = async function onCallbackQuery(callbackQuery: any
     const leagueAllowed = await checkIfLeagueAllowed(message, added_league, telegramId);
     if(!leagueAllowed){
       await Promise.all([
-        await bot.sendMessage(message.chat.id, 'UEFA Europa Conference League foi adicionada a sua lista'),
+        await bot.sendMessage(message.chat.id, 'UEFA Europa Conference League foi adicionada a sua lista.'),
         await updateLeagues(added_league, telegramId),
         await stringLeagues(message, telegramId),
       ])
