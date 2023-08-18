@@ -1,3 +1,30 @@
+# Bet Bot - A Telegram Betting Bot with Scraping System
+Bet Bot is a Telegram bot that revolutionizes the betting experience by providing users with daily betting information, including tips, matches, and odds. The bot is integrated with a scraping system built with Puppeteer and Zod and uses PostgreSQL, Prisma, and TypeScript for database management, ORM, and development.
+
+By following the instructions in this guide, you will be able to set up and run the Bet Bot system on your local machine.
+
+## System Overview
+Bet Bot aims to help users stay updated with the world of sports betting, with a specific focus on soccer. The bot provides daily notifications about matches and odds from the leagues the user follows. Users can add or remove leagues from their list, customize their preferences, and receive relevant information.
+
+Although the current version of the bot is primarily aimed at the Brazilian market, with full support for the Portuguese language, it was designed to be scalable and can be expanded to support additional languages and features.
+
+### Getting Started
+To run the Bet Bot system on your local machine, follow these steps:
+
+- Clone the repository to your local machine.
+- Install the required dependencies using the yarn install command.
+- Set up a PostgreSQL database and update the database configuration in the project.
+- Set up the Telegram bot API key.
+- Configure the scraping scripts to be able to connect to the bot correctly.
+- Compile and start the system using the yarn dev command.
+- Ensure you have the necessary permissions and access rights to use the required libraries, APIs, and databases.
+
+### Conclusion
+Bet Bot aims to be a valuable virtual assistant for bettors.
+
+Thank you for using Bet Bot! For more information and support, please refer to the project documentation and resources.
+
+
 # Bet Bot - Bot de Apostas no Telegram com Sistema de Scraping
 O Bet Bot é um bot do Telegram que revoluciona a experiência de apostas, fornecendo aos usuários informações diárias de apostas, incluindo dicas, jogos e odds. O bot é integrado a um sistema de scraping construído com Puppeteer e Zod, e utiliza PostgreSQL, Prisma e TypeScript para gerenciamento de banco de dados, ORM e desenvolvimento.
 
